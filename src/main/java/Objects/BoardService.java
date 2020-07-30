@@ -4,16 +4,22 @@ import Enums.Variant;
 
 public class BoardService {
 
-    public static Board iterate(Board board) {
+    private static Cell[][] copyArray(Cell[][] oldArray){
 
-        Cell[][] iteratedCells = new Cell[board.cells.length][board.cells[0].length];
+        Cell[][] newArray = new Cell[oldArray.length][oldArray[0].length];
 
-        //TODO: make better way to clone arrays
-        for (int i = 0; i < board.cells.length; i++) {
-            for (int j = 0; j < board.cells[i].length; j++) {
-                iteratedCells[i][j] = new Cell(board.cells[i][j].variant);
+        for (int i = 0; i < oldArray.length; i++) {
+            for (int j = 0; j < oldArray[i].length; j++) {
+                newArray[i][j] = new Cell(oldArray[i][j].variant);
             }
         }
+
+        return newArray;
+    }
+
+    public static Board iterate(Board board) {
+
+        Cell[][] iteratedCells = copyArray(board.cells);
 
         for (int i = 0; i < board.cells.length; i++) {
             for (int j = 0; j < board.cells[i].length; j++) {
